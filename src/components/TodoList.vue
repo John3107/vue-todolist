@@ -7,6 +7,7 @@
         v-bind:todo="todo"
         v-bind:index="i"
         v-on:remove-todo="removeTodo"
+        @change-title="changeTitle"
       />
     </ul>
   </div>
@@ -22,6 +23,9 @@ export default {
   methods: {
     removeTodo(id) {
       this.$emit("remove-todo", id);
+    },
+    changeTitle(id, title) {
+      this.$emit("change-title", id, title);
     },
   },
 };

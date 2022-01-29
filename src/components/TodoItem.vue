@@ -2,8 +2,8 @@
   <li>
     <span v-bind:class="{ done: todo.completed }">
       <input type="checkbox" v-on:change="todo.completed = !todo.completed" />
-      <strong>{{index + 1}}</strong>
-      {{todo.title | uppercase}}
+      <strong>{{ index + 1 }}</strong>
+      <EditableSpan v-bind:todo="todo" @change-title="changeTitle" />
     </span>
     <button class="rm" v-on:click="$emit('remove-todo', todo.id)">
       &times;
@@ -11,11 +11,8 @@
   </li>
 </template>
 
-<script> 
-import Vue from 'vue';
-Vue.filter('uppercase', function (value) {
-    return value.toUpperCase();
-});
+<script>
+import EditableSpan from "./EditableSpan.vue";
 export default {
   props: {
     todo: {
@@ -24,6 +21,14 @@ export default {
     },
     index: {
       type: Number,
+    },
+  },
+  components: {
+    EditableSpan,
+  },
+  methods: {
+    changeTitle(id, title) {
+      this.$emit("change-title", id, title);
     },
   },
 };

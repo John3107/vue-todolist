@@ -15,8 +15,10 @@
       v-else-if="filteredTodos.length"
       v-bind:todos="filteredTodos"
       @remove-todo="removeTodo"
+      @change-title="changeTitle"
     />
     <p v-else>No todos!</p>
+    <Plot />
   </div>
 </template>
 
@@ -24,6 +26,7 @@
 import TodoList from "@/components/TodoList";
 import AddTodo from "@/components/AddTodo";
 import Loader from "@/components/Loader";
+import Plot from "@/components/Plot";
 export default {
   name: "App",
   data() {
@@ -63,11 +66,15 @@ export default {
     addTodo(todo) {
       this.todos.push(todo);
     },
+    changeTitle(id, title) {
+      this.todos = this.todos.map(t => t.id === id ? {...t, title} : t);
+    },
   },
   components: {
     TodoList,
     AddTodo,
     Loader,
+    Plot
   },
 };
 </script>
